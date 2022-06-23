@@ -1,0 +1,32 @@
+<div class="form-group">
+  <input
+    type="text"
+    class="form-control mb-4"
+    placeholder="Search"
+    [(ngModel)]="query"
+    id="listSearch"
+  />
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Game id</th>
+      <th scope="col">Match Between</th>
+      <th scope="col">Time</th>
+      <th scope="col">City</th>
+      <th scope="col">Venue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of upcomingMatches | searchFilter: query">
+      <th scope="row">{{ item.game_id || "-" }}</th>
+      <td>{{ item.home_name + " - " + item.away_name }}</td>
+      <td>{{ item.game_date | date: "dd-MM-yyyy" || "-" }}</td>
+      <td>{{ item.venue_city || "-" }}</td>
+      <td>{{ item.venue_name || "-" }}</td>
+    </tr>
+    <tr *ngIf="upcomingMatches && upcomingMatches.length < 1">
+      <div>No records found</div>
+    </tr>
+  </tbody>
+</table>
